@@ -3,6 +3,8 @@ package com.example.adam.myspace;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
@@ -25,26 +27,46 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class prolif extends AppCompatActivity {
     private LocationManager locMag;
     private LocationListener locLis;
+    private TextView textLocalisation;
     ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prolif);
+
+        final SQLiteDatabase db;
+        db= openOrCreateDatabase("app",MODE_PRIVATE,null);
+//        db.execSQL("SELECT login FROM users WHERE id_user=1");
+        Cursor curs =db.rawQuery("SELECT * FROM users WHERE id_user=1",null);
+        curs.moveToFirst();
+//  PROFIL
+        TextView tvLogin=(TextView)findViewById(R.id.textViewImie);
+        tvLogin.setText(curs.getString(curs.getColumnIndex("login")));
+
+//        TextView tvHaslo=(TextView)findViewById(R.id.textViewHaslo);
+//        tvHaslo.setText(curs.getString(curs.getColumnIndex("haslo")));
+
+        TextView tvOpis=(TextView)findViewById(R.id.textViewOpiss);
+        tvOpis.setText(curs.getString(curs.getColumnIndex("opis")));
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Button btn = (Button) findViewById(R.id.buttonFoto);
         img = (ImageView) findViewById(R.id.imageView);
-        String name_key = getIntent().getStringExtra("name_key");
 
-        Toast t = Toast.makeText(prolif.this, "Witaj " + name_key, 5000);
-        if(name_key!=null){
-            t.show();
-        }
+//        ArrayList<String> name_key= (ArrayList<String>)getIntent().getSerializableExtra("name_key");
+//        Toast t = Toast.makeText(prolif.this, "Witaj "+ name_key.get(0).toString(), 5000);
+//        Toast t = Toast.makeText(prolif.this, "Witaj "+ "pizda", 5000);
+//        if(name_key!=null){
+//            t.show();
+//        }
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,12 +97,15 @@ public class prolif extends AppCompatActivity {
             }
         });
 //        LOKALIZACJA
-        final TextView textLocalisation = (TextView) findViewById(R.id.textView6);
+        textLocalisation = (TextView) findViewById(R.id.textView6);
+//        this.textLocalisation.setText("asfasfasfaf");
+
         locMag = (LocationManager) getSystemService(LOCATION_SERVICE);
         locLis = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                textLocalisation.append(location.getLongitude() + "   " + location.getLatitude());
+                textLocalisation.append("\n " + location.getLongitude() + " " + location.getLatitude());
+//                textLocalisation.setText(location.getLongitude() + "  CHUJ " + location.getLatitude());
             }
 
             @Override
@@ -100,13 +125,11 @@ public class prolif extends AppCompatActivity {
             }
         };
         configureLocalisation();
-
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
+        switch (requestCode){
             case 10:
                 configureLocalisation();
                 break;
@@ -115,13 +138,11 @@ public class prolif extends AppCompatActivity {
         }
     }
 
-    public void configureLocalisation() {
+     void configureLocalisation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-                requestPermissions(new String[]{
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.INTERNET},10);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.INTERNET}
+                        ,10);
             }
             return;
         }

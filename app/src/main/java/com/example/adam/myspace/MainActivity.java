@@ -23,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
 
         final SQLiteDatabase db;
         db= openOrCreateDatabase("app",MODE_PRIVATE,null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS users(login VARCHAR,haslo VARCHAR,opis VARCHAR)");
-        db.execSQL("INSERT INTO users (login,haslo,opis) VALUES('admin','admin','Lorem Ipsum')");
-        db.execSQL("INSERT INTO users (login,haslo,opis) VALUES('ziomek1','ziomek1','Lorem Ipsum')");
+        db.execSQL("CREATE TABLE IF NOT EXISTS users(id_user INT,login VARCHAR,haslo VARCHAR,opis VARCHAR)");
+        db.execSQL("INSERT INTO users (id_user,login,haslo,opis) VALUES(1,'admin','admin','Lorem Ipsum')");
+        db.execSQL("INSERT INTO users (id_user,login,haslo,opis) VALUES(2,'ziomek1','ziomek1','Lorem Ipsum')");
 
 
         final EditText et_psswd=(EditText)findViewById(R.id.editText2);
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 //                int i=0;
                 String uname;
                 String uhaslo;
+
 
 //                while(cur.moveToNext() && i< array.length){
 //                    uname = cur.getString(cur.getColumnIndex("login"));
@@ -57,14 +58,18 @@ public class MainActivity extends AppCompatActivity {
 //                    array[i] = uname;
 //                    i++;
 //                }
-//                Toast w=Toast.makeText(MainActivity.this,"za pętlą",500);
-//                w.show();
+//
+
+//                ArrayList<String> info_login = new ArrayList<String>();
+//                info_login.add(cur.getString(cur.getColumnIndex("login")));
+//                info_login.add(cur.getString(cur.getColumnIndex("haslo")));
+//                info_login.add(cur.getString(cur.getColumnIndex("opis")));
+
 
                 Intent intent=new Intent(v.getContext(),prolif.class);
+//                cur.moveToFirst();
+//                intent.putExtra("name_key",info_login);
                 startActivity(intent);
-
-//                Intent intentDB=new Intent(v.getContext(),prolif.class);
-                intent.putExtra("name_key","imie");
             }
         });
 

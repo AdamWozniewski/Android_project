@@ -48,26 +48,6 @@
         android:textSize="24sp" />
 
     <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewHaslo"
-        android:textSize="24sp"
-        android:layout_below="@+id/textViewImie"
-        android:layout_alignLeft="@+id/textViewImie"
-        android:layout_alignStart="@+id/textViewImie" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewHaslo"
-        android:layout_alignLeft="@+id/textViewHaslo"
-        android:layout_alignStart="@+id/textViewHaslo"
-        android:id="@+id/textViewOpis"
-        android:textSize="24sp" />
-
-    <TextView
         android:text="Jesteś Aktualnie:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -102,4 +82,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/button2" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewImie"
+        android:layout_alignLeft="@+id/textViewImie"
+        android:layout_alignStart="@+id/textViewImie"
+        android:layout_marginTop="27dp"
+        android:id="@+id/textViewOpiss" />
+
 </RelativeLayout>

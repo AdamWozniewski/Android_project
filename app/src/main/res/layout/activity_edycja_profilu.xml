@@ -10,15 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.adam.myspace.edycjaProfilu">
 
-    <Button
-        android:text="Zapisz"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="91dp"
-        android:id="@+id/button" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,9 +48,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button"
+        android:layout_alignLeft="@+id/buttonSAVE"
+        android:layout_alignStart="@+id/buttonSAVE"
         android:layout_marginBottom="27dp"
         android:id="@+id/buttonPrev"
         android:textSize="12sp" />
+
+    <Button
+        android:text="Zapisz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:id="@+id/buttonSAVE"
+        android:layout_above="@+id/buttonPrev"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
