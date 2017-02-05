@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static String global_login="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,43 +35,32 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cursor cur =db.rawQuery("SELECT login,haslo FROM users",null);
-                String[] array = new String[cur.getCount()];
-//                int i=0;
+                Cursor cur =db.rawQuery("SELECT login,haslo,id_user FROM users",null);
+
                 String uname;
                 String uhaslo;
-
-
-//                while(cur.moveToNext() && i< array.length){
-//                    uname = cur.getString(cur.getColumnIndex("login"));
-//                    uhaslo=cur.getString(cur.getColumnIndex("haslo"));
+                boolean stop=false;
+                while(cur.moveToNext() && stop==false){
+                    uname = cur.getString(cur.getColumnIndex("login"));
+                    uhaslo=cur.getString(cur.getColumnIndex("haslo"));
 //
-//                    if(uname.equals(et_login.getText().toString()) && uhaslo.equals(et_psswd.getText().toString())){
-//                        Toast t=Toast.makeText(MainActivity.this,et_psswd.getText().toString(),500);
-//                        t.show();
-//                        break;
-//                    }else {
-//                        Toast e=Toast.makeText(MainActivity.this,"brak",500);
-//                        e.show();
-//                    }
-//
-//                    array[i] = uname;
-//                    i++;
-//                }
-//
+                    if(uname.equals(et_login.getText().toString()) && uhaslo.equals(et_psswd.getText().toString())){
+                        Intent intent=new Intent(v.getContext(),prolif.class);
 
-//                ArrayList<String> info_login = new ArrayList<String>();
-//                info_login.add(cur.getString(cur.getColumnIndex("login")));
-//                info_login.add(cur.getString(cur.getColumnIndex("haslo")));
-//                info_login.add(cur.getString(cur.getColumnIndex("opis")));
+                        String idik=cur.getString(cur.getColumnIndex("id_user"));
+                        intent.putExtra("name_key",idik);
 
-
-                Intent intent=new Intent(v.getContext(),prolif.class);
-//                cur.moveToFirst();
-//                intent.putExtra("name_key",info_login);
-                startActivity(intent);
+                        startActivity(intent);
+                        stop=true;
+                        break;
+                    }
+                    else {
+                        Toast e=Toast.makeText(MainActivity.this,"brak",500);
+                        e.show();
+                        break;
+                    }
+                }
             }
         });
-
     }
 }

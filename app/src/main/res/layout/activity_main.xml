@@ -29,13 +29,13 @@
         android:layout_alignStart="@+id/editText"
         android:layout_marginTop="43dp"
         android:id="@+id/editText2"
-        android:text="h" />
+        android:text="admin" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Login"
+        android:text="admin"
         android:ems="10"
         android:layout_marginTop="66dp"
         android:id="@+id/editText"
