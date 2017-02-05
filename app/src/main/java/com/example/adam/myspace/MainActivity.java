@@ -23,27 +23,23 @@ public class MainActivity extends AppCompatActivity {
 
         final SQLiteDatabase db;
         db= openOrCreateDatabase("app",MODE_PRIVATE,null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS users(login VARCHAR,haslo VARCHAR)");
-        db.execSQL("INSERT INTO users (login,haslo) VALUES('admin','admin')");
-        db.execSQL("INSERT INTO users (login,haslo) VALUES('ziomek1','ziomek1')");
+        db.execSQL("CREATE TABLE IF NOT EXISTS users(login VARCHAR,haslo VARCHAR,opis VARCHAR)");
+        db.execSQL("INSERT INTO users (login,haslo,opis) VALUES('admin','admin','Lorem Ipsum')");
+        db.execSQL("INSERT INTO users (login,haslo,opis) VALUES('ziomek1','ziomek1','Lorem Ipsum')");
 
 
         final EditText et_psswd=(EditText)findViewById(R.id.editText2);
         final EditText et_login=(EditText)findViewById(R.id.editText);
         Button btn_login=(Button)findViewById(R.id.button_login);
+
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Cursor cur =db.rawQuery("SELECT login,haslo FROM users",null);
                 String[] array = new String[cur.getCount()];
-
-            System.out.println("siema");
 //                int i=0;
                 String uname;
                 String uhaslo;
-
-
-
 
 //                while(cur.moveToNext() && i< array.length){
 //                    uname = cur.getString(cur.getColumnIndex("login"));
@@ -65,8 +61,10 @@ public class MainActivity extends AppCompatActivity {
 //                w.show();
 
                 Intent intent=new Intent(v.getContext(),prolif.class);
-                intent.putExtra("name_key","IMIE");
                 startActivity(intent);
+
+//                Intent intentDB=new Intent(v.getContext(),prolif.class);
+                intent.putExtra("name_key","imie");
             }
         });
 
