@@ -67,7 +67,7 @@ public class prolif extends AppCompatActivity {
         img = (ImageView) findViewById(R.id.imageView);
 
 
-        Toast t = Toast.makeText(prolif.this, "Witaj "+ id_login_s, 5000);
+        Toast t = Toast.makeText(prolif.this, "Witaj "+ curs.getString(curs.getColumnIndex("login")), 5000);
 
         if(id_login_s!=null){
             t.show();

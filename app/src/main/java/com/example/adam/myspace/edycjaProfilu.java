@@ -1,6 +1,7 @@
 package com.example.adam.myspace;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ public class edycjaProfilu extends AppCompatActivity {
 
         final SQLiteDatabase db;
         db= openOrCreateDatabase("app",MODE_PRIVATE,null);
+
 //        db.execSQL("CREATE TABLE IF NOT EXISTS users(id_user INT,login VARCHAR,haslo VARCHAR,opis VARCHAR");
 
         Button btnPrev=(Button)findViewById(R.id.buttonPrev);
@@ -28,7 +30,11 @@ public class edycjaProfilu extends AppCompatActivity {
         final TextView opis=(TextView)findViewById(R.id.editText5);
         final String id_login_s_s=getIntent().getStringExtra("to_edit");
         toReturn=id_login_s_s;
-        
+
+        Cursor curs =db.rawQuery("SELECT * FROM users WHERE id_user='"+id_login_s_s+"'",null);
+        curs.moveToFirst();
+        imie.setText(curs.getString(curs.getColumnIndex("login")));
+        haslo.setText(curs.getString(curs.getColumnIndex("haslo")));
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
